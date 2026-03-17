@@ -60,7 +60,7 @@ endif
 
 zg-freq-%:
 	$(eval ver = $(subst -.,,-$(*)))
-	python mb-tool/code_freq.py $(table$(ver)) --freq-table $(char-freq$(ver)) > zg-freq/$(zg-scheme)$(ver).tsv
+	python mb-tool/code_freq.py $(table$(ver)) --freq-table $(char-freq$(ver)) > frequency/zigen/$(zg-scheme)$(ver).tsv
 
 check-zg-code:
 ifeq ($(char-standards),)
