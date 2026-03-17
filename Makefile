@@ -52,15 +52,23 @@ jianma-%: full-%
 		python mb-tool/jianma-gen.py $(jm-methods) --freq-table $(char-freq$(ver)) \
 			--format "{text}	{jm}|{code}" >> build/jianma$(ver).tsv
 
-ifeq ($(char-standards),)
+freq: $(or $(foreach std,$(char-standards),freq-$(std)),freq-.)
+
+freq-%: zg-freq-% zone-freq-%
+	true
+
 zg-freq: zg-freq-.
-else
-zg-freq: $(foreach std,$(char-standards),zg-freq-$(std))
-endif
 
 zg-freq-%:
 	$(eval ver = $(subst -.,,-$(*)))
 	python mb-tool/code_freq.py $(table$(ver)) --freq-table $(char-freq$(ver)) > frequency/zigen/$(zg-scheme)$(ver).tsv
+
+zone-freq: zone-freq-.
+
+zone-freq-%: full-%
+	$(eval ver = $(subst -.,,-$(*)))
+	sed -E 's/(\S\S)/`\1`/g; s/\S`//g; s/`//g' build/full.tsv | \
+		python mb-tool/code_freq.py --freq-table $(char-freq$(ver)) > frequency/zone/$(zg-scheme)$(ver).tsv
 
 check-zg-code:
 ifeq ($(char-standards),)
