@@ -28,7 +28,7 @@ dict-%: full-% jianma-%
 	python mb-tool/apply_mapping.py $(codemap-file) $(keymap-file) \
 		build/full$(ver).tsv > build/dict$(ver).tsv
 	printf "\n# $(jm-name$(ver))\n" >> build/dict$(ver).tsv
-	sed -E 's/^(.+)\t(.)(.)$$/\1\t\2\3\t\2\3\3\t20/' build/dict$(ver).tsv > build/temp
+	sed -E 's/^(.+)\t(.)(.)$$/\1\t\2\3\t\2\3\3/' build/dict$(ver).tsv > build/temp
 	cat build/temp > build/dict$(ver).tsv
 	rm build/temp
 	python mb-tool/apply_mapping.py $(codemap-file) $(keymap-file) build/jianma$(ver).tsv | \
@@ -53,7 +53,7 @@ jianma-%: full-%
 		python mb-tool/subset.py -d -st build/jianma$(ver).tsv | \
 		awk -F'\t' 'length($$2) == 4 {print $$1"\t"$$2}' | \
 		python mb-tool/jianma-gen.py $(jm-methods-2) --freq-table $(char-freq$(ver)) \
-			--format "{text}	{jm}|{code}|10" >> build/jianma$(ver).tsv
+			--format "{text}	{jm};|{code}" >> build/jianma$(ver).tsv
 	echo >> build/jianma$(ver).tsv
 	# 三級簡碼
 	python mb-tool/subset.py build/full$(ver).tsv $(common$(ver)) | \
