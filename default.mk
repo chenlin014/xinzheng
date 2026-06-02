@@ -34,6 +34,10 @@ jm-name-jp?=略コード
 jm-name?=$(jm-name-ft)
 
 # 簡碼取碼法
+jm-methods-1=0
+
+jm-methods-2=0,2
+
 ABC=0,2,4
 ABZ=0,2,-2
 AYZ=0,-4,-2
@@ -41,9 +45,10 @@ AaB=0,1,2
 AaZ=0,1,-2
 ABb=0,2,3
 AZz=0,-2,-1
-jm-methods?=$(ABC):$(ABZ):$(AYZ):$(AaB):$(AaZ):$(ABb):$(AZz)
+jm-methods-3?=$(ABC):$(ABZ):$(AYZ):$(AaB):$(AaZ):$(ABb):$(AZz)
+
 # 給多長的編碼生成簡碼
-# 一鍵
+# 一級
 jm-gen-len-1?=4
-# 三鍵
+# 三級
 jm-gen-len-3?=5
