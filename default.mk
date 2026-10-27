@@ -36,7 +36,7 @@ jm-name?=$(jm-name-ft)
 # 簡碼取碼法
 jm-methods-1=0
 
-jm-methods-2=0,2
+jm-methods-2=0,2:0,2,3:0,1,2
 
 ABC=0,2,4
 ABZ=0,2,-2
