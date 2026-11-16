@@ -27,14 +27,13 @@ dict-%: full-% jianma-%
 	$(eval ver = $(subst -.,,-$(*)))
 	python mb-tool/apply_mapping.py $(codemap-file) $(keymap-file) \
 		build/full$(ver).tsv > build/dict$(ver).tsv
-	sed -E 's/\t(.)(.)$$/\t\1\2\t\1\2\2\2\2\2/' build/dict$(ver).tsv | \
-		sed -E 's/\t(...)(.)$$/\t\1\2\t\1\2\2\2/' > build/temp
+	sed -E 's/\t(...)(.)$$/\t\1\2\t\1\2\2\2/' build/dict$(ver).tsv | \
+		sed -E 's/\t(.)(.)$$/\t\1\2\t\1\2\2\2/' > build/temp
 	cat build/temp > build/dict$(ver).tsv
 	rm build/temp
 	printf "\n# $(jm-name$(ver))\n" >> build/dict$(ver).tsv
 	python mb-tool/apply_mapping.py $(codemap-file) $(keymap-file) build/jianma$(ver).tsv | \
-		sed 's/|/\t/g' | sed -E 's/\t(.)(.)$$/\t\1\2\2\2\2\2/' | \
-		sed -E 's/\t(...)(.)$$/\t\1\2\2\2/' >> build/dict$(ver).tsv
+		sed 's/|/\t/g' | sed -E 's/\t(...)(.)$$/\t\1\2\2\2/' >> build/dict$(ver).tsv
 
 zg-code:
 	python mb-tool/apply_mapping.py codemap/key_pos_num.json $(codemap-file) $(zg-code-mb) | \
